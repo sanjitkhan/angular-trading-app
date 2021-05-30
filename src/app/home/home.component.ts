@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  // products = [];
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  ngOnInit(): void {
+  constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    this.dataService.getPlatformStatus().subscribe((data: any)=>{
+      console.log(data);
+    })  
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Unsubscribe from the subject
+    this.destroy$.unsubscribe();
   }
 
 }
