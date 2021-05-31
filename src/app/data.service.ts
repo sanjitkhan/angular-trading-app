@@ -4,20 +4,12 @@ import { Observable } from 'rxjs';
 import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
-enum Endpoint {
-  PLATFORM = '/platform'
-}
-
-enum BitbnsApi {
-  V1 = "https://api.bitbns.com/api/trade/v1",
-  V2 = "https://api.bitbns.com/api/trade/v2"
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private MAX_RETRY_LIMIT = 5;
+  private wazirxApi = "https://api.wazirx.com";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -34,17 +26,14 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  public callBitbnsApi(path: string) {
-    const headers = {
-      'X-BITBNS-APIKEY': '0A9AE4A5C2A644B34CEF80DFBB9ABD41'
-    };
+  public callWazirXApi(path: string) {
     return this.httpClient
-      .get(path, { headers })
+      .get(path)
       .pipe(retry(this.MAX_RETRY_LIMIT), catchError(this.handleError));
   }
 
   // public APIs
-  public getPlatformStatus(): Observable<Object> {
-    return this.callBitbnsApi(BitbnsApi.V1 + Endpoint.PLATFORM + '/status');
+  public getMarketTicker(): Observable<Object> {
+    return this.callWazirXApi(this.wazirxApi + '/api/v2/tickers');
   }
 }
