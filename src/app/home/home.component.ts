@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getPlatformStatus().subscribe((data: any)=>{
+    this.dataService.getMarketTicker().subscribe((data: any)=>{
       console.log(data);
     })  
   }
