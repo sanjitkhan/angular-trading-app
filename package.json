@@ -1,7 +1,6 @@
 {
   "name": "angular-trading-app",
   "version": "1.0.0",
-  "homepage": "https://sanjitkhan.github.io/angular-trading-app",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
