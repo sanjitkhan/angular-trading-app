@@ -1,13 +1,16 @@
-name: CI/CD on deploying to master
+name: CI/CD on creating a tag
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - '*'
 
 jobs:
   build:
-    name: Build, Test and Deploy
+    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -33,9 +36,17 @@ jobs:
       - name: Build
         run: ng build --prod --output-path=dist --base-href="https://sanjitkhan.github.io/angular-trading-app/"
 
-      # - name: Test
-      #   run: npm run test
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Test
+  #       run: npm run test
 
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
         uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
         with:

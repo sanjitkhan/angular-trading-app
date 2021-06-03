@@ -6,8 +6,10 @@ on:
 
 jobs:
   build:
-    name: Build, Test and Deploy
+    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -31,7 +33,11 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Build
-        run: ng build --prod --output-path=dist --base-href="https://sanjitkhan.github.io/angular-trading-app/"
+        run: ng build
 
-      # - name: Test
-      #   run: npm run test
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Test
+  #       run: npm run test
