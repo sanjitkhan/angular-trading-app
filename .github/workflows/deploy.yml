@@ -1,7 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: CI/CD
+name: CI/CD on deploying to master
 
 on:
   push:
@@ -9,49 +6,39 @@ on:
 
 jobs:
   build:
-
+    name: Build, Test and Deploy
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          **/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('**/yarn-lock.json') }}
+      - name: Use Node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
 
-    - name: Install dependencies
-      run: npm install
-      
-    # - name: Run the tests
-      # run: npm test
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      
-    - name: Build
-      run: npm build
+      - name: Install dependencies
+        run: npm install
 
-    - name: Deploy
-      run: |
-        git config --global user.name $user_name
-        git config --global user.email $user_email
-        git remote set-url origin https://${github_token}@github.com/${repository}
-        npm deploy
-      env:
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        github_token: ${{ secrets.ANGULAR_TRADING_APP_ACCESS_TOKEN }}
-        repository: ${{ github.repository }}
+      - name: Install Angular
+        run: npm install -g @angular/cli
+
+      - name: Build
+        run: ng build --prod --output-path=dist --base-href="https://sanjitkhan.github.io/angular-trading-app/"
+
+      # - name: Test
+      #   run: npm run test
+
+      - name: Deploy
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+        with:
+          dir: dist
+          branch: gh-pages
+          token: ${{ secrets.ANGULAR_TRADING_APP_ACCESS_TOKEN }}
