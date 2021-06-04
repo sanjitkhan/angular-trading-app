@@ -9,74 +9,103 @@ $marketTableHeaderHeight: 40px;
   @extend %center;
   $margin: 40px;
   display: flex;
+  flex-direction: column;
   margin-top: $margin;
   margin-bottom: $margin;
   width: 1200px;
   max-height: calc(100vh - #{$appMenuHeight} - 2 * #{$margin});
   background-color: $secondary;
 
-  .market-table-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  .market-table-header {
+    height: $marketTableHeaderHeight;
+    padding: 30px 20px 30px;
 
-    .market-table-header {
-      height: $marketTableHeaderHeight;
-      padding: 30px 20px 10px;
-  
-      mat-label {
-        position: relative;
-        top: 10px;
-        font-size: larger;
-        letter-spacing: 0.6px;
+    mat-label {
+      position: relative;
+      top: 10px;
+      font-size: larger;
+      letter-spacing: 0.6px;
+    }
+
+    mat-button-toggle-group {
+      @extend %align-right;
+      position: relative;
+      top: -8px;
+      margin-right: 20px;
+      height: 46px;
+      width: 212px; // height * 4
+
+      mat-button-toggle.mat-button-toggle-checked {
+        opacity: 1;
       }
-  
-      mat-form-field {
-        @extend %align-right;
-        width: 200px;
-        position: relative;
-        top: -15px;
-  
-        ::ng-deep {
-          .mat-form-field-outline {
-            top: 8px;
-          }
-  
-          .mat-form-field-outline-start, .mat-form-field-outline-end {
-            background-color: $primary-lighter;
-            border-width: 1px;
-            border-color: $primary-lighter;
-          }
-  
-          .mat-form-field-outline-thick {
-            .mat-form-field-outline-start, .mat-form-field-outline-end {
-              border-color: $primary-dark;
-            }  
+
+      mat-button-toggle {
+        width: 50%;
+        opacity: 0.3;
+
+        ::ng-deep.mat-button-toggle-button {
+          position: relative;
+          top: -50%;
+          margin-top: 22px;
+        }
+
+        ::ng-deep .mat-button-toggle-label-content {
+          padding: 0;
+
+          mat-icon {
+            height: 100%;
+            width: 100%;
           }
         }
       }
     }
-  
-    .market-table-body {
-      width: 100%;
-      height: calc(100% - #{$marketTableHeaderHeight});
-      overflow-y: scroll;
-  
-      .market-table {
-        width: 100%;
-  
-        .market-table-no-data-cell {
-          text-align: center;
-        }
-      }
 
-      th, td {
-        text-transform: uppercase;
+    mat-form-field {
+      @extend %align-right;
+      width: 200px;
+      position: relative;
+      top: -15px;
+
+      ::ng-deep {
+        .mat-form-field-outline {
+          top: 8px;
+        }
+
+        .mat-form-field-outline-start, .mat-form-field-outline-end {
+          background-color: $primary-lighter;
+          border-width: 1px;
+          border-color: $primary-lighter;
+        }
+
+        .mat-form-field-outline-thick {
+          .mat-form-field-outline-start, .mat-form-field-outline-end {
+            border-color: $primary-dark;
+          }  
+        }
       }
     }
   }
+
+  
+  .market-table-body {
+    height: calc(100% - #{$marketTableHeaderHeight});
+    overflow-y: scroll;
+
+    .market-table {
+      width: 100%;
+
+      .market-table-no-data-cell {
+        text-align: center;
+      }
+    }
+
+    th, td {
+      text-transform: uppercase;
+    }
+  }
+  
 }
 
 .market-loader {
-  margin: 250px auto;
+  margin: 290px auto;
 }
