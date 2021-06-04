@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataService } from './data.service';
+import { WazirxDataService } from './wazirx.data.service';
 
-describe('DataService', () => {
-  let service: DataService;
+describe('WazirxDataService', () => {
+  let service: WazirxDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DataService);
+    service = TestBed.inject(WazirxDataService);
   });
 
   it('should be created', () => {

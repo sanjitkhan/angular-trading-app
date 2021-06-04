@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+
+export enum DataServiceEnum {
+  WAZIRX = "wazirx",
+  BITBNS = "bitbns"
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private MAX_RETRY_LIMIT = 5;
-  private wazirxApi = "https://api.wazirx.com";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,14 +29,9 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  public callWazirXApi(path: string) {
+  public getData(path: string) {
     return this.httpClient
       .get(path)
       .pipe(retry(this.MAX_RETRY_LIMIT), catchError(this.handleError));
-  }
-
-  // public APIs
-  public getMarketTicker(): Observable<Object> {
-    return this.callWazirXApi(this.wazirxApi + '/api/v2/tickers');
   }
 }
