@@ -1,4 +1,8 @@
-%center {
+/************************
+ * Common Class Modules *
+ ************************/
+
+ %center {
   margin: auto;
 }
 
@@ -10,3 +14,20 @@
 %align-right {
   float: right;
 }
+
+
+
+
+/******************
+ * Common Classes *
+ ******************/
+.bolder-text {
+  font-weight: 500;
+}
+
+
+/********************
+ * Common Variables *
+ ********************/
+
+$testBorder: 1px solid black;
