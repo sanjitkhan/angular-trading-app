@@ -87,7 +87,16 @@ $chrome-palette: (
 // dark theme
 $primary-palette: mat-palette($chrome-palette, 500);
 $accent-palette: mat-palette(mat.$brown-palette, A200, A100, A400);
-$dark-theme: mat-dark-theme($primary-palette, $accent-palette);
+$typography: mat.define-typography-config(
+  $font-family: 'Fira Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif',
+);
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+  ),
+  typography: $typography,
+ ));
 
 @include mat.all-component-themes($dark-theme);
 

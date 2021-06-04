@@ -9,11 +9,10 @@ import { DataServiceEnum } from '../services/data/data.service';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { convertToINR, convertToSpacedNumeral } from '../utils/utils';
 
 import WAZIRX_LOGO from '!!raw-loader!./../../assets/svg/wazirx.svg';
 import BITBNS_LOGO from '!!raw-loader!./../../assets/svg/bitbns.svg';
-// const WAZIRX_LOGO = "./wazirx.svg";
-// const BITBNS_LOGO = "../wazirx.svg";
 
 interface DataPoints {
   // showing raw from the data
@@ -36,7 +35,7 @@ interface TableElement extends Pick<DataPoints,
   'volume'> {
   //calculated
   change: string;
-  fluctuation_percent: string;
+  fluctuation: string;
   cash_flow: string;
 }
 
@@ -84,7 +83,7 @@ export class HomeComponent implements AfterViewInit {
         { id: 'change', label: 'Change %' },
         { id: 'high', label: 'High' },
         { id: 'low', label: 'Low' },
-        { id: 'fluctuation_percent', label: 'Fluctuation %' },
+        { id: 'fluctuation', label: 'Fluctuation %' },
         { id: 'volume', label: 'Volume' },
         { id: 'cash_flow', label: 'Cash Flow' }
       ];
@@ -185,13 +184,13 @@ export class HomeComponent implements AfterViewInit {
             const volume = this.marketObject.volumeFn ? this.marketObject.volumeFn(volumeObject) : volumeObject;
             return {
               name,
-              price,
+              price: convertToINR(price),
               change: ((Number(last)-Number(open))/Number(open)*100).toFixed(4),
-              high,
-              low,
-              fluctuation_percent: ((Number(high)-Number(low))/Number(low)*100).toFixed(4),
-              volume,
-              cash_flow: (Number(volume)*Number(price)).toFixed(4)
+              high: convertToINR(high),
+              low: convertToINR(low),
+              fluctuation: ((Number(high)-Number(low))/Number(low)*100).toFixed(4),
+              volume: convertToSpacedNumeral(volume),
+              cash_flow: convertToINR((Number(volume)*Number(price)).toFixed(4))
             }
           });
       })

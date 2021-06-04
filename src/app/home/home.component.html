@@ -3,7 +3,7 @@
 
     <!-- Table header -->
     <div class="market-table-header">
-      <mat-label>MARKET</mat-label>
+      <mat-label class="mat-headline">MARKET</mat-label>
 
       <mat-form-field appearance="outline">
         <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
@@ -39,7 +39,23 @@
         
         <ng-container *ngFor="let column of marketTableColumns" matColumnDef="{{column.id}}">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.label}}</th>
-          <td mat-cell *matCellDef="let row">{{row[column.id]}}</td>
+          <td mat-cell *matCellDef="let row" 
+            [ngClass]="[
+              ((column.id === 'change' 
+                || column.id === 'fluctuation')
+                && row[column.id] !== '0.0000')
+                 ? (row[column.id].slice(0,1) === '-' ? 'fall bolder-text' : 'rise bolder-text')
+                 : ''
+          ]">
+            <span class="table-cell-value">
+              <span class="change-icon" *ngIf="column.id === 'change' 
+              || column.id === 'fluctuation'">
+                <mat-icon *ngIf="row[column.id] !== '0.0000' && row[column.id].slice(0,1) !== '-'">arrow_drop_up</mat-icon>
+                <mat-icon *ngIf="row[column.id].slice(0,1) === '-'">arrow_drop_down</mat-icon>
+              </span>
+              {{row[column.id].slice(0,1) === '-' ? row[column.id].slice(1) : row[column.id]}}
+            </span>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

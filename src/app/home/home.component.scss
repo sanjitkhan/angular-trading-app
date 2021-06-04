@@ -1,5 +1,4 @@
 @import '/src/app/app.component';
-@import '/src/scss/variables';
 @import '/src/scss/modules';
 @import '/src/scss/colors';
 
@@ -23,8 +22,6 @@ $marketTableHeaderHeight: 40px;
     mat-label {
       position: relative;
       top: 10px;
-      font-size: larger;
-      letter-spacing: 0.6px;
     }
 
     mat-button-toggle-group {
@@ -49,7 +46,7 @@ $marketTableHeaderHeight: 40px;
           margin-top: 22px;
         }
 
-        ::ng-deep .mat-button-toggle-label-content {
+        ::ng-deep.mat-button-toggle-label-content {
           padding: 0;
 
           mat-icon {
@@ -93,6 +90,18 @@ $marketTableHeaderHeight: 40px;
 
     .market-table {
       width: 100%;
+
+      .fall > .table-cell-value, .rise > .table-cell-value {
+        position: relative;
+        top: -6px;
+      }
+
+      .change-icon > mat-icon {
+        position: relative;
+        right: 5px;
+        top: 7px;
+        margin-right: -12px;
+      }
 
       .market-table-no-data-cell {
         text-align: center;
