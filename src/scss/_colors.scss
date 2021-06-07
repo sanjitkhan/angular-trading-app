@@ -113,3 +113,8 @@ $accent-light: mat.get-color-from-palette($accent-palette, A100);
 $accent: mat.get-color-from-palette($accent-palette, A200);
 $accent-dark: mat.get-color-from-palette($accent-palette, A400);
 $accent-darker: mat.get-color-from-palette($accent-palette, A700);
+
+// other colors
+$green-1: mat.get-color-from-palette(mat.$green-palette, 500);
+
+$red-1: mat.get-color-from-palette(mat.$red-palette, 500);

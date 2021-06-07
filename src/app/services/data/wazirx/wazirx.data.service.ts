@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
+import env from '../../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class WazirxDataService {
-  private basePath = "https://api.wazirx.com";
+  private basePath = env.baseUrl + "/wazirx-api";
 
   constructor(private dataService: DataService) { }
 
