@@ -1,0 +1,34 @@
+{
+  "/wazirx-api": {
+    "target": "https://api.wazirx.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/wazirx-api": ""
+    }
+  },
+  "/bitbns-api-v1": {
+    "target": "https://api.bitbns.com/api/trade/v1",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/bitbns-api-v1": ""
+    }
+  },
+  "/bitbns-api-v2": {
+    "target": "https://api.bitbns.com/api/trade/v2",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/bitbns-api-v2": ""
+    }
+  },
+  "/bitbns-api-order": {
+    "target": "https://bitbns.com/order",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/bitbns-api-order": ""
+    }
+  }
+}
