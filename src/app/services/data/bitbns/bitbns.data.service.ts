@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
+import env from '../../../../environments/environment'
 
-enum BITBNSAPI {
-  V1 = "https://api.bitbns.com/api/trade/v1",
-  V2 = "https://api.bitbns.com/api/trade/v2",
-  ORDER = "https://bitbns.com/order"
+const BITBNSAPI = {
+  V1: env.baseUrl + "/bitbns-api-v1",
+  V2: env.baseUrl + "/bitbns-api-v2",
+  ORDER: env.baseUrl + "/bitbns-api-order"
 }
 
 @Injectable({

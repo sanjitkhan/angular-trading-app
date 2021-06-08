@@ -1,9 +1,8 @@
 name: CI/CD on creating a new tag
 
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
